@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.android.application")
     id("com.google.gms.google-services")
 }
 
@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.database.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,9 +69,15 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation ("com.google.code.gson:gson:2.8.9")
+
     //Compose Navigation
     implementation("androidx.navigation:navigation-compose:2.7.4")
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+
+    //Icons
+    implementation ("androidx.compose.material:material-icons-extended:<latest-version>")
 
 }
