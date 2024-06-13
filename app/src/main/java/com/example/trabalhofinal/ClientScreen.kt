@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -27,62 +28,68 @@ fun ClientScreen(navController: NavController, clientRepository: ClientRepositor
     var endereco by remember { mutableStateOf("") }
     var instagram by remember { mutableStateOf("") }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        Text(text = "Cadastrar Cliente")
-
-        OutlinedTextField(
-            value = cpf,
-            onValueChange = { cpf = it },
-            label = { Text("CPF") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.padding(top = 8.dp)
-        )
-
-        OutlinedTextField(
-            value = nome,
-            onValueChange = { nome = it },
-            label = { Text("Nome") },
-            modifier = Modifier.padding(top = 8.dp)
-        )
-
-        OutlinedTextField(
-            value = telefone,
-            onValueChange = { telefone = it },
-            label = { Text("Telefone") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-            modifier = Modifier.padding(top = 8.dp)
-        )
-
-        OutlinedTextField(
-            value = endereco,
-            onValueChange = { endereco = it },
-            label = { Text("Endereço") },
-            modifier = Modifier.padding(top = 8.dp)
-        )
-
-        OutlinedTextField(
-            value = instagram,
-            onValueChange = { instagram = it },
-            label = { Text("Instagram") },
-            modifier = Modifier.padding(top = 8.dp)
-        )
-
-        Button(
-            onClick = {
-                val client = Client(cpf, nome, telefone, endereco, instagram)
-                clientRepository.inserirCliente(client)
-
-                navController.navigate("ListaClientes")
-            },
-            modifier = Modifier.padding(top = 16.dp)
+    Scaffold(
+        topBar = { AppTopBar(titulo = "Clientes") }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .padding(innerPadding)
+            ,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Cadastrar")
+
+            Text(text = "Cadastrar Cliente")
+
+            OutlinedTextField(
+                value = cpf,
+                onValueChange = { cpf = it },
+                label = { Text("CPF") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier.padding(top = 8.dp)
+            )
+
+            OutlinedTextField(
+                value = nome,
+                onValueChange = { nome = it },
+                label = { Text("Nome") },
+                modifier = Modifier.padding(top = 8.dp)
+            )
+
+            OutlinedTextField(
+                value = telefone,
+                onValueChange = { telefone = it },
+                label = { Text("Telefone") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                modifier = Modifier.padding(top = 8.dp)
+            )
+
+            OutlinedTextField(
+                value = endereco,
+                onValueChange = { endereco = it },
+                label = { Text("Endereço") },
+                modifier = Modifier.padding(top = 8.dp)
+            )
+
+            OutlinedTextField(
+                value = instagram,
+                onValueChange = { instagram = it },
+                label = { Text("Instagram") },
+                modifier = Modifier.padding(top = 8.dp)
+            )
+
+            Button(
+                onClick = {
+                    val client = Client(cpf, nome, telefone, endereco, instagram)
+                    clientRepository.inserirCliente(client)
+
+                    navController.navigate("ListaClientes")
+                },
+                modifier = Modifier.padding(top = 16.dp)
+            ) {
+                Text("Cadastrar")
+            }
         }
     }
 }
