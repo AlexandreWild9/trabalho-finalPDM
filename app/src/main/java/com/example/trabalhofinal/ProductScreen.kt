@@ -16,6 +16,8 @@ fun ProductScreen(navController: NavController, ProductRepository: ProductReposi
     var selectedGrao by remember { mutableStateOf("") }
     var selectedTorra by remember { mutableStateOf("") }
 
+
+
     Scaffold(topBar = { AppTopBar(titulo = "Produtos") }) { innerPadding ->
         Column(
             modifier = Modifier
@@ -74,8 +76,8 @@ fun ProductScreen(navController: NavController, ProductRepository: ProductReposi
             Button(onClick = {
                 val produto = Product(nome, selectedGrao, selectedTorra)
                 ProductRepository.inserirProduto(produto)
- /*               navController.navigate("ListaProdutos") {
-                }*/
+                navController.navigate("ListaProdutos") {
+                }
             }) {
                 Text(text = "Salvar")
             }

@@ -66,7 +66,7 @@ fun ClientItem(client: Client, onDeleteConfirmed: () -> Unit) {
     }
 
     if (showDialog) {
-        AlertDialogExample(
+        AlertDialog(
             onDismissRequest = { showDialog = false },
             onConfirmation = {
                 onDeleteConfirmed()
@@ -81,7 +81,7 @@ fun ClientItem(client: Client, onDeleteConfirmed: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlertDialogExample(
+fun AlertDialog(
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit,
     dialogTitle: String,
@@ -102,7 +102,7 @@ fun AlertDialogExample(
             onDismissRequest()
         },
         confirmButton = {
-            TextButton(
+            Button(
                 onClick = {
                     onConfirmation()
                 }
@@ -111,7 +111,7 @@ fun AlertDialogExample(
             }
         },
         dismissButton = {
-            TextButton(
+            Button(
                 onClick = {
                     onDismissRequest()
                 }

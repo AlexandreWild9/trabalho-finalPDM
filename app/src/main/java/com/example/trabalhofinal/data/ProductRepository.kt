@@ -31,6 +31,11 @@ class ProductRepository(val db: FirebaseFirestore) {
 
         }
         return listProduct
+    }
 
+    fun deletarProduto(nome: String) {
+        db.collection("produtos")
+            .document(nome)
+            .delete()
     }
 }

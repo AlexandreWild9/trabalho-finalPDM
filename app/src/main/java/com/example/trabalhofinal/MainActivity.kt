@@ -96,6 +96,10 @@ class MainActivity : ComponentActivity() {
                                 context = this@MainActivity
                             )
                         }
+                        composable(route = "ListaProdutos")
+                        {
+                            ListProductsScreen(navController, productRepository, context = this@MainActivity)
+                        }
                     }
                     BottomAppBar(actions = {
                         items.forEach { item ->
