@@ -1,7 +1,9 @@
 package com.example.trabalhofinal.data
 
 import android.util.Log
+import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
 
@@ -9,9 +11,8 @@ class ProductRepository(val db: FirebaseFirestore) {
 
     fun inserirProduto(produto: Product) {
 
-
         db.collection("produtos")
-            .document(produto.nome)
+            .document(produto.id.toString())
             .set(produto)
     }
 
@@ -31,6 +32,20 @@ class ProductRepository(val db: FirebaseFirestore) {
 
         }
         return listProduct
+    }
+
+    suspend fun buscarProdutoPorId(idProduto: Int): Product? {
+        return try {
+            val document = db.collection("produtos")
+                .document(idProduto.toString())
+                .get()
+                .await()
+
+            document.toObject(Product::class.java)
+        } catch (e: Exception) {
+            // Lidar com exceções aqui, como logar o erro
+            null
+        }
     }
 
     fun deletarProduto(nome: String) {

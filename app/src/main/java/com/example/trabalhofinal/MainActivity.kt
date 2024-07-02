@@ -11,7 +11,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddReaction
 import androidx.compose.material.icons.filled.AddShoppingCart
 import androidx.compose.material.icons.filled.Blender
+import androidx.compose.material.icons.filled.Coffee
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.ListAlt
 import androidx.compose.material.icons.sharp.AddReaction
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -33,10 +35,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navOptions
 import com.example.trabalhofinal.data.ClientRepository
+import com.example.trabalhofinal.data.OrderRepository
 import com.example.trabalhofinal.data.ProductRepository
 import com.example.trabalhofinal.ui.screens.HomeScreen
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Label
 
 
 class MainActivity : ComponentActivity() {
@@ -45,6 +47,7 @@ class MainActivity : ComponentActivity() {
         val db = FirebaseFirestore.getInstance()
         val clientRepository = ClientRepository(db)
         val productRepository = ProductRepository(db)
+        val orderRepository = OrderRepository(db)
 
 
         super.onCreate(savedInstanceState)
@@ -56,8 +59,8 @@ class MainActivity : ComponentActivity() {
                     listOf(
                         Pair("Home", Icons.Filled.Home),
                         Pair("Clientes", Icons.Filled.AddReaction),
-                        Pair("Produtos", Icons.Filled.Blender),
-                        Pair("Pedidos", Icons.Filled.AddShoppingCart),
+                        Pair("Produtos", Icons.Filled.Coffee),
+                        Pair("Pedidos", Icons.Filled.ListAlt),
                     )
                 }
                 var selectedItem by remember {
@@ -86,7 +89,7 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = "orders")
                         {
-                            OrdersScreen()
+                            OrdersScreen(clientRepository, productRepository, orderRepository, navController)
                         }
                         composable(route = "ListaClientes")
                         {
@@ -99,6 +102,10 @@ class MainActivity : ComponentActivity() {
                         composable(route = "ListaProdutos")
                         {
                             ListProductsScreen(navController, productRepository, context = this@MainActivity)
+                        }
+                        composable(route = "ListaPedidos")
+                        {
+                            OrderListScreen(navController, orderRepository, context = this@MainActivity)
                         }
                     }
                     BottomAppBar(actions = {

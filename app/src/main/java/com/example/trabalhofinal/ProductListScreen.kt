@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +20,7 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,7 +29,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.trabalhofinal.data.Product
@@ -55,17 +55,20 @@ fun ListProductsScreen(
         listaProdutos = listaProdutos.filter { it.nome != nome }
     }
 
-    Text(text = "Lista de Produtos")
-    Column(
-        modifier = androidx.compose.ui.Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        LazyColumn(
-            modifier = Modifier.wrapContentHeight()
+    Scaffold(
+        topBar = { AppTopBar(titulo = "Produtos Cadastrados") }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(innerPadding)
         ) {
-            items(listaProdutos) { produto ->
-                ProductItem(produto, onDeleteConfirmed = { deleteProduct(produto.nome) })
+            LazyColumn(
+                modifier = Modifier.wrapContentHeight().padding(0.dp, 32.dp)
+            ) {
+                items(listaProdutos) { produto ->
+                    ProductItem(produto, onDeleteConfirmed = { deleteProduct(produto.nome) })
+                }
             }
         }
     }
@@ -85,6 +88,12 @@ fun ProductItem(produto: Product, onDeleteConfirmed: () -> Unit) {
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Id: ${produto.id}",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Spacer(modifier = Modifier.padding(8.dp))
             Text(
                 text = "Nome: ${produto.nome}",
                 style = MaterialTheme.typography.titleMedium,
@@ -115,7 +124,7 @@ fun ProductItem(produto: Product, onDeleteConfirmed: () -> Unit) {
     }
     if (showDialog) {
         AlertDialogProduct(
-            onDismissRequest =  { showDialog = false },
+            onDismissRequest = { showDialog = false },
             onConfirmation = {
                 onDeleteConfirmed()
                 showDialog = false
@@ -125,7 +134,6 @@ fun ProductItem(produto: Product, onDeleteConfirmed: () -> Unit) {
         )
     }
 }
-
 
 
 @Composable
