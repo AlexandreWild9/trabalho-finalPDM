@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -107,16 +108,30 @@ fun PedidoItem(pedido: Order, onDeleteConfirmed: () -> Unit) {
                 }
             }
         }
-        Icon(
-            imageVector = Icons.Default.Delete,
-            contentDescription = "Delete",
-            modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .padding(end = 16.dp)
-                .size(32.dp)
-                .clickable { showDialog = true },
-            tint = MaterialTheme.colorScheme.error
-        )
+        Column(modifier = Modifier
+            .align(Alignment.CenterEnd)
+
+        ) {
+            Icon(
+                imageVector = Icons.Default.Edit,
+                contentDescription = "Edit",
+                modifier = Modifier
+                    .size(32.dp)
+                    .clickable {
+                    },
+                tint = MaterialTheme.colorScheme.primary
+            )
+            Spacer(modifier = Modifier.padding(8.dp))
+            Icon(
+                imageVector = Icons.Default.Delete,
+                contentDescription = "Delete",
+                modifier = Modifier
+                    .padding(end = 16.dp)
+                    .size(32.dp)
+                    .clickable { showDialog = true },
+                tint = MaterialTheme.colorScheme.error
+            )
+        }
     }
     if (showDialog) {
         AlertDialogPedido(
@@ -139,7 +154,7 @@ fun AlertDialogPedido(
     dialogTitle: String,
     dialogText: String,
 ) {
-    androidx.compose.material3.AlertDialog(
+   AlertDialog(
         icon = {
             Icon(Icons.Default.Delete, contentDescription = "Example Icon")
         },

@@ -28,7 +28,7 @@ class ClientRepository(val db: FirebaseFirestore) {
                 client?.let {
                     listaClientes.add(it)
                     Log.i("tag", "CPF: ${it.cpf}, Nome: ${it.nome}, Endereço: ${it.endereco}, Instagram: ${it.instagram}")
-                } ?: Log.w("tag", "Documento sem dados válidos: ${document.id}")
+                }
             }
             Log.d("tag", "Clientes carregados com sucesso")
         } catch (e: Exception) {
@@ -36,6 +36,8 @@ class ClientRepository(val db: FirebaseFirestore) {
         }
         return listaClientes
     }
+
+
 
 
     fun deletarCliente(cpf: String, context: Context) {

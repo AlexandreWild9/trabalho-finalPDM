@@ -74,7 +74,6 @@ fun OrdersScreen(clientRepository: ClientRepository, productRepository: ProductR
                     OutlinedTextField(
                         value = selectedClient?.nome ?: "",
                         onValueChange = {},
-                        readOnly = true,
                         label = { Text("Selecione o Cliente") },
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedClientDropdown) },
                         modifier = Modifier

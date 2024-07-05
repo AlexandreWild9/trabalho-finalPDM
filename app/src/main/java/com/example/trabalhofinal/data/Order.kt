@@ -17,6 +17,6 @@ data class ItemPedido(
     val productName: String = "",
     val quantity: Int = 0
 ) {
-    // Construtor sem argumentos necessário para o Firebase Firestore
+
     constructor() : this(0, "", 0)
 }

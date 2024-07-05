@@ -17,54 +17,57 @@ import com.example.trabalhofinal.data.Client
 @Composable
 fun ClientItem(client: Client, onDeleteConfirmed: () -> Unit) {
     var showDialog by remember { mutableStateOf(false) }
-
-    ElevatedCard(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = "Nome: ${client.nome}",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "CPF: ${client.cpf}",
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Endereço: ${client.endereco}",
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Instagram: ${client.instagram}",
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.End
-            ) {
-                Spacer(modifier = Modifier.weight(1f))
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete",
-                    modifier = Modifier
-                        .size(32.dp)
-                        .clickable { showDialog = true },
-                    tint = MaterialTheme.colorScheme.error
+        ElevatedCard(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            shape = RoundedCornerShape(8.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = "Nome: ${client.nome}",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary
                 )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "CPF: ${client.cpf}",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Endereço: ${client.endereco}",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Instagram: ${client.instagram}",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Spacer(modifier = Modifier.weight(1f))
+
             }
         }
+        Column(modifier = Modifier
+            .align(Alignment.CenterEnd)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Delete,
+                contentDescription = "Delete",
+                modifier = Modifier
+                    .padding(end = 16.dp)
+                    .size(32.dp)
+                    .clickable { showDialog = true },
+                tint = MaterialTheme.colorScheme.error
+            )
+        }
     }
-
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },

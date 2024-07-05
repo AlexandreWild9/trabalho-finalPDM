@@ -75,7 +75,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.4")
 
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
 
     //Icons
     implementation ("androidx.compose.material:material-icons-extended:<latest-version>")

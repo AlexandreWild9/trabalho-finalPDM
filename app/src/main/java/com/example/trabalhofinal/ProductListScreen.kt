@@ -2,6 +2,7 @@ package com.example.trabalhofinal
 
 import android.content.Context
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -64,7 +66,9 @@ fun ListProductsScreen(
                 .padding(innerPadding)
         ) {
             LazyColumn(
-                modifier = Modifier.wrapContentHeight().padding(0.dp, 32.dp)
+                modifier = Modifier
+                    .wrapContentHeight()
+                    .padding(0.dp, 32.dp)
             ) {
                 items(listaProdutos) { produto ->
                     ProductItem(produto, onDeleteConfirmed = { deleteProduct(produto.nome) })
@@ -78,44 +82,53 @@ fun ListProductsScreen(
 @Composable
 fun ProductItem(produto: Product, onDeleteConfirmed: () -> Unit) {
     var showDialog by remember { mutableStateOf(false) }
-
-    ElevatedCard(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = "Id: ${produto.id}",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.padding(8.dp))
-            Text(
-                text = "Nome: ${produto.nome}",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.padding(8.dp))
-            Text(
-                text = "Tipo de grão: ${produto.tipoGrao}",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Torra: ${produto.torra}",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.height(8.dp))
+        ElevatedCard(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            shape = RoundedCornerShape(8.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary),
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = "Id: ${produto.id}",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.padding(8.dp))
+                Text(
+                    text = "Nome: ${produto.nome}",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.padding(8.dp))
+                Text(
+                    text = "Tipo de grão: ${produto.tipoGrao}",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Torra: ${produto.torra}",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+        Column(
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+        ) {
             Icon(
                 imageVector = Icons.Default.Delete,
                 contentDescription = "Delete",
                 modifier = Modifier
+                    .padding(end = 16.dp)
                     .size(32.dp)
                     .clickable { showDialog = true },
                 tint = MaterialTheme.colorScheme.error
